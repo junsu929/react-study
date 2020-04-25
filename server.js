@@ -6,33 +6,16 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.get('/user', (req, res, next) => {
-    res.send([
-            {
-            'id':1,
-            "image": "https://placeimg.com/64/64/1",
-            'name' : '홍길동',
-            'birthday' : '961222',
-            'gender' : '남자',
-            'job' : '프로그래머'
-          },
-          {
-            'id':2,
-            "image": "https://placeimg.com/64/64/2",
-            'name' : '박준수',
-            'birthday' : '950929',
-            'gender' : '남자',
-            'job' : '대학생'
-          },
-          {
-            'id':3,
-            "image": "https://placeimg.com/64/64/3",
-            'name' : '이자',
-            'birthday' : '157213',
-            'gender' : '여성',
-            'job' : '직업군인'
-          }
-    ]);
-});
+
+// 라우터 객체생성
+var UserRouter = require('./routes/user');
+
+// 라우터 객체등록
+// user.js에서 실행되는 항목은 반드시, localhost:3030/user/ 로 시작한다.
+// 또한, 밑처럼 /user로 경로가 지정된 경우, 정보를 보낼 때, '/' 형식으로 해야 'localhost:0000/user/' 형식으로 
+// 보낼 수 있다.
+app.use('/user', UserRouter);
+
+
 
 app.listen(port, () => console.log(`Listening on Port ${port}`));
